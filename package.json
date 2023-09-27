@@ -22,6 +22,10 @@
   },
   "homepage": "https://github.com/michael-ingram/air-to-ground-online-status#readme",
   "dependencies": {
-    "axios": "^1.5.1"
+    "axios": "^1.5.1",
+    "events": "^3.3.0"
+  },
+  "devDependencies": {
+    "typescript": "^5.2.2"
   }
 }
