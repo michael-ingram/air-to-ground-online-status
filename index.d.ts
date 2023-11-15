@@ -1,23 +1,28 @@
-
 declare module 'air-to-ground-online-status' {
-    export function checkOnlineStatus(urlToPing?: string, maxRetries?: number, retryInterval?: number): Promise<boolean>;
+    export interface OnlineStatusResult {
+        status: boolean;
+        error: string[] | null;
+    }
+
+    export function checkOnline(
+        urlToPing?: string,
+    ): Promise<OnlineStatusResult>;
 
     export class OnlineStatusChecker extends EventEmitter {
         constructor(options?: {
-            checkInterval?: number;
-            maxRetries?: number;
+            checkOnlineInterval?: number;
+            checkOfflineInterval?: number;
             urlToPing?: string;
-            retryInterval?: number;
         });
 
-        getStatus(): boolean;
-        listenForChanges(callback: (isOnline: boolean) => void): void;
+        getStatus(): OnlineStatusResult;
+        listenForChanges(callback: (isOnline: OnlineStatusResult) => void): void;
+        stopChecking(): void;
     }
 
     export default function OnlineStatus(options?: {
-        checkInterval?: number;
-        maxRetries?: number;
+        checkOnlineInterval?: number;
+        checkOfflineInterval?: number;
         urlToPing?: string;
-        retryInterval?: number;
     }): OnlineStatusChecker;
 }
